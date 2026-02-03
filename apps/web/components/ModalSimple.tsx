@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent } from "react";
+import { FormEvent, useState, useEffect } from "react";
 
 export interface ModalSimpleProps {
   /** Si el modal está abierto. */
@@ -14,12 +14,19 @@ export interface ModalSimpleProps {
 /**
  * Modal simple con formulario (nombre, email, mensaje).
  * Handlers: console.log y window.dataLayer.push si existe.
+ * Tras enviar muestra mensaje de éxito (success toast).
  */
 export function ModalSimple({
   isOpen,
   onClose,
   title = "Agenda una demo",
 }: ModalSimpleProps) {
+  const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (!isOpen) setSubmitted(false);
+  }, [isOpen]);
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -37,7 +44,7 @@ export function ModalSimple({
         ...data,
       });
     }
-    onClose();
+    setSubmitted(true);
   };
 
   if (!isOpen) return null;
@@ -67,6 +74,20 @@ export function ModalSimple({
             <span aria-hidden>×</span>
           </button>
         </div>
+        {submitted ? (
+          <div data-testid="demo-success" className="py-4 text-center">
+            <p className="text-emerald-600 font-medium">
+              Gracias, te contactaremos pronto.
+            </p>
+            <button
+              type="button"
+              onClick={onClose}
+              className="mt-4 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700"
+            >
+              Cerrar
+            </button>
+          </div>
+        ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="demo-nombre" className="block text-sm font-medium text-slate-700 mb-1">
@@ -121,6 +142,7 @@ export function ModalSimple({
             </button>
           </div>
         </form>
+        )}
       </div>
     </div>
   );
