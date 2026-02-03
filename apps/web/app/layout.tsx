@@ -2,8 +2,14 @@ import type { Metadata } from "next";
 import "../styles/globals.css";
 
 export const metadata: Metadata = {
-  title: "Web App",
-  description: "Next.js App Router + TypeScript + TailwindCSS",
+  title: "StartUp | Bienvenido",
+  description:
+    "Next.js App Router + TypeScript + TailwindCSS. Planes y contacto por WhatsApp.",
+  openGraph: {
+    title: "StartUp | Bienvenido",
+    description:
+      "Next.js App Router + TypeScript + TailwindCSS. Planes y contacto por WhatsApp.",
+  },
 };
 
 export default function RootLayout({
