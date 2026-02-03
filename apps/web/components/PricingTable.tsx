@@ -57,6 +57,15 @@ export function PricingTable({ plans }: PricingTableProps) {
               </li>
             ))}
           </ul>
+          <div className="mt-6">
+            <button
+              type="button"
+              className="w-full rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+              aria-label={`Empezar con ${plan.name}`}
+            >
+              Empezar
+            </button>
+          </div>
         </article>
       ))}
     </div>

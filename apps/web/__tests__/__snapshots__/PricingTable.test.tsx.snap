@@ -1,0 +1,244 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`PricingTable > coincide con el snapshot de la estructura 1`] = `
+<div
+  aria-label="Planes de precios"
+  class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+  role="list"
+>
+  <article
+    class="rounded-2xl border-2 p-6 shadow-sm transition-shadow hover:shadow-md border-slate-200 bg-white"
+    role="listitem"
+  >
+    <h3
+      class="text-xl font-semibold text-slate-900"
+    >
+      Starter
+    </h3>
+    <p
+      class="mt-1 text-sm text-slate-600"
+    >
+      Para empezar
+    </p>
+    <p
+      class="mt-4 text-3xl font-bold text-slate-900"
+    >
+      29
+      <span
+        class="text-base font-normal text-slate-500"
+      >
+        /mes
+      </span>
+    </p>
+    <ul
+      class="mt-6 space-y-3"
+      role="list"
+    >
+      <li
+        class="flex items-center gap-2 text-slate-700"
+        role="listitem"
+      >
+        <span
+          aria-hidden="true"
+          class="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"
+        />
+        5 proyectos
+      </li>
+      <li
+        class="flex items-center gap-2 text-slate-700"
+        role="listitem"
+      >
+        <span
+          aria-hidden="true"
+          class="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"
+        />
+        Soporte email
+      </li>
+      <li
+        class="flex items-center gap-2 text-slate-700"
+        role="listitem"
+      >
+        <span
+          aria-hidden="true"
+          class="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"
+        />
+        Actualizaciones
+      </li>
+    </ul>
+    <div
+      class="mt-6"
+    >
+      <button
+        aria-label="Empezar con Starter"
+        class="w-full rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+        type="button"
+      >
+        Empezar
+      </button>
+    </div>
+  </article>
+  <article
+    class="rounded-2xl border-2 p-6 shadow-sm transition-shadow hover:shadow-md border-emerald-500 bg-emerald-50/50 ring-2 ring-emerald-500/20"
+    role="listitem"
+  >
+    <span
+      aria-hidden="true"
+      class="inline-block rounded-full bg-emerald-600 px-3 py-1 text-xs font-medium text-white mb-4"
+    >
+      Recomendado
+    </span>
+    <h3
+      class="text-xl font-semibold text-slate-900"
+    >
+      Pro
+    </h3>
+    <p
+      class="mt-1 text-sm text-slate-600"
+    >
+      Lo más popular
+    </p>
+    <p
+      class="mt-4 text-3xl font-bold text-slate-900"
+    >
+      79
+      <span
+        class="text-base font-normal text-slate-500"
+      >
+        /mes
+      </span>
+    </p>
+    <ul
+      class="mt-6 space-y-3"
+      role="list"
+    >
+      <li
+        class="flex items-center gap-2 text-slate-700"
+        role="listitem"
+      >
+        <span
+          aria-hidden="true"
+          class="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"
+        />
+        Proyectos ilimitados
+      </li>
+      <li
+        class="flex items-center gap-2 text-slate-700"
+        role="listitem"
+      >
+        <span
+          aria-hidden="true"
+          class="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"
+        />
+        Soporte prioritario
+      </li>
+      <li
+        class="flex items-center gap-2 text-slate-700"
+        role="listitem"
+      >
+        <span
+          aria-hidden="true"
+          class="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"
+        />
+        API
+      </li>
+      <li
+        class="flex items-center gap-2 text-slate-700"
+        role="listitem"
+      >
+        <span
+          aria-hidden="true"
+          class="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"
+        />
+        Dashboard
+      </li>
+    </ul>
+    <div
+      class="mt-6"
+    >
+      <button
+        aria-label="Empezar con Pro"
+        class="w-full rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+        type="button"
+      >
+        Empezar
+      </button>
+    </div>
+  </article>
+  <article
+    class="rounded-2xl border-2 p-6 shadow-sm transition-shadow hover:shadow-md border-slate-200 bg-white"
+    role="listitem"
+  >
+    <h3
+      class="text-xl font-semibold text-slate-900"
+    >
+      Enterprise
+    </h3>
+    <p
+      class="mt-1 text-sm text-slate-600"
+    >
+      Para equipos grandes
+    </p>
+    <p
+      class="mt-4 text-3xl font-bold text-slate-900"
+    >
+      Contactar
+    </p>
+    <ul
+      class="mt-6 space-y-3"
+      role="list"
+    >
+      <li
+        class="flex items-center gap-2 text-slate-700"
+        role="listitem"
+      >
+        <span
+          aria-hidden="true"
+          class="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"
+        />
+        Todo en Pro
+      </li>
+      <li
+        class="flex items-center gap-2 text-slate-700"
+        role="listitem"
+      >
+        <span
+          aria-hidden="true"
+          class="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"
+        />
+        SLA
+      </li>
+      <li
+        class="flex items-center gap-2 text-slate-700"
+        role="listitem"
+      >
+        <span
+          aria-hidden="true"
+          class="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"
+        />
+        Onboarding dedicado
+      </li>
+      <li
+        class="flex items-center gap-2 text-slate-700"
+        role="listitem"
+      >
+        <span
+          aria-hidden="true"
+          class="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0"
+        />
+        SSO
+      </li>
+    </ul>
+    <div
+      class="mt-6"
+    >
+      <button
+        aria-label="Empezar con Enterprise"
+        class="w-full rounded-lg bg-emerald-600 px-4 py-2 text-sm font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2"
+        type="button"
+      >
+        Empezar
+      </button>
+    </div>
+  </article>
+</div>
+`;
