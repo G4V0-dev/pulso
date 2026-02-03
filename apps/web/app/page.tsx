@@ -2,7 +2,11 @@ import { Hero } from "@/components/Hero";
 import { Section } from "@/components/Section";
 import { PricingTable } from "@/components/PricingTable";
 import { CTA } from "@/components/CTA";
-import { PLANS, DEFAULT_WHATSAPP_NUMBER } from "@/lib/constants";
+import {
+  PLANS,
+  WHATSAPP_COLOMBIA_NUMBER,
+  WHATSAPP_DEFAULT_MESSAGE,
+} from "@/lib/constants";
 
 export default function Home() {
   return (
@@ -10,9 +14,12 @@ export default function Home() {
       <Hero
         title="Bienvenido a la app"
         subtitle="Next.js + TypeScript + TailwindCSS (App Router)"
-        ctaPrimary="Hablar por WhatsApp"
+        ctaSignup="Prueba gratis 7 días"
+        ctaDemo="Agenda demo"
+        ctaWhatsApp="Hablar por WhatsApp"
         ctaSecondary="Ver planes"
-        whatsappNumber={DEFAULT_WHATSAPP_NUMBER}
+        whatsappNumber={WHATSAPP_COLOMBIA_NUMBER}
+        whatsappMessage={WHATSAPP_DEFAULT_MESSAGE}
       />
       <main id="content" className="min-h-screen">
         <Section id="pricing">
@@ -22,12 +29,13 @@ export default function Home() {
           <PricingTable plans={PLANS} />
         </Section>
         <Section>
-          <CTA
-            title="¿Listo para empezar?"
-            description="Contáctanos por WhatsApp y te respondemos al instante."
-            buttonText="Contactar por WhatsApp"
-            whatsappNumber={DEFAULT_WHATSAPP_NUMBER}
-          />
+<CTA
+          title="¿Listo para empezar?"
+          description="Contáctanos por WhatsApp y te respondemos al instante."
+          buttonText="Contactar por WhatsApp"
+          whatsappNumber={WHATSAPP_COLOMBIA_NUMBER}
+          whatsappMessage={WHATSAPP_DEFAULT_MESSAGE}
+        />
         </Section>
       </main>
       <footer className="border-t border-slate-200 bg-slate-50 px-4 py-6 text-center text-sm text-slate-600">

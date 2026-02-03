@@ -39,3 +39,10 @@ export const PLANS: Plan[] = [
 
 /** Número de WhatsApp por defecto para CTAs (sin espacios ni +). */
 export const DEFAULT_WHATSAPP_NUMBER = "5491112345678";
+
+/** Número WhatsApp Colombia para contacto. */
+export const WHATSAPP_COLOMBIA_NUMBER = "573208112607";
+
+/** Mensaje predefinido para enlace WhatsApp. */
+export const WHATSAPP_DEFAULT_MESSAGE =
+  "estoy interesado en la pagina web para mi negocio";

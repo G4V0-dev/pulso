@@ -7,10 +7,17 @@ export interface CTAProps {
   buttonText?: string;
   /** Número WhatsApp (sin + ni espacios). */
   whatsappNumber?: string;
+  /** Mensaje predefinido para el enlace (?text=). */
+  whatsappMessage?: string;
 }
 
-const whatsappUrl = (number: string) =>
-  `https://wa.me/${number.replace(/\D/g, "")}`;
+const whatsappUrl = (number: string, message?: string) => {
+  const base = `https://wa.me/${number.replace(/\D/g, "")}`;
+  if (message?.trim()) {
+    return `${base}?text=${encodeURIComponent(message.trim())}`;
+  }
+  return base;
+};
 
 /**
  * Bloque CTA final con botón WhatsApp y mensaje principal.
@@ -20,6 +27,7 @@ export function CTA({
   description,
   buttonText = "Contactar por WhatsApp",
   whatsappNumber = "",
+  whatsappMessage = "",
 }: CTAProps) {
   const hasNumber = Boolean(whatsappNumber);
 
@@ -39,7 +47,7 @@ export function CTA({
       )}
       {hasNumber && (
         <a
-          href={whatsappUrl(whatsappNumber)}
+          href={whatsappUrl(whatsappNumber, whatsappMessage)}
           target="_blank"
           rel="noopener noreferrer"
           className="mt-6 inline-flex items-center justify-center rounded-lg bg-emerald-600 px-6 py-3 text-base font-medium text-white shadow hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-colors"
