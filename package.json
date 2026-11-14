@@ -1,0 +1,20 @@
+{
+  "name": "pulso",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pulso — landing y base de producto para un SaaS de gestión de proyectos",
+  "scripts": {
+    "dev": "npm --prefix apps/web run dev",
+    "build": "npm --prefix apps/web run build",
+    "start": "npm --prefix apps/web run start",
+    "lint": "npm --prefix apps/web run lint",
+    "typecheck": "npm --prefix apps/web run typecheck",
+    "format": "npm --prefix apps/web run format",
+    "test": "npm --prefix apps/web run test",
+    "test:e2e": "npm --prefix apps/web run test:e2e",
+    "install:web": "npm --prefix apps/web install"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
