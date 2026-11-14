@@ -1,8 +1,13 @@
 import { Hero } from "@/components/Hero";
-import { Section } from "@/components/Section";
+import { Features } from "@/components/Features";
+import { HowItWorks } from "@/components/HowItWorks";
+import { Testimonials } from "@/components/Testimonials";
+import { Section, SectionHeader } from "@/components/Section";
 import { PricingTable } from "@/components/PricingTable";
+import { FAQ } from "@/components/FAQ";
 import { CTA } from "@/components/CTA";
 import {
+  HERO_STATS,
   PLANS,
   WHATSAPP_COLOMBIA_NUMBER,
   WHATSAPP_DEFAULT_MESSAGE,
@@ -10,37 +15,49 @@ import {
 
 export default function Home() {
   return (
-    <>
+    <main id="contenido">
       <Hero
-        title="Bienvenido a la app"
-        subtitle="Next.js + TypeScript + TailwindCSS (App Router)"
-        ctaSignup="Prueba gratis 7 días"
-        ctaDemo="Agenda demo"
+        eyebrow="Nuevo · Automatizaciones con IA"
+        title="Tus proyectos, tu equipo y tus plazos. Por fin en un solo lugar."
+        subtitle="Pulso reúne tableros, tareas, documentos y reportes para que tu equipo deje de perseguir estados por chat y empiece a entregar."
+        ctaSignup="Prueba gratis 14 días"
+        ctaDemo="Ver demo de 2 min"
         ctaWhatsApp="Hablar por WhatsApp"
-        ctaSecondary="Ver planes"
+        ctaSecondary="Ver precios"
+        whatsappNumber={WHATSAPP_COLOMBIA_NUMBER}
+        whatsappMessage={WHATSAPP_DEFAULT_MESSAGE}
+        stats={HERO_STATS}
+        showPreview
+      />
+
+      <Features />
+
+      <HowItWorks />
+
+      <Testimonials />
+
+      <Section id="precios" ariaLabel="Planes y precios">
+        <SectionHeader
+          eyebrow="Precios"
+          title="Empieza gratis, escala cuando el equipo crezca"
+          description="Todos los planes incluyen tableros ilimitados y actualizaciones. Pagas solo por los usuarios activos, sin contratos anuales."
+        />
+        <PricingTable plans={PLANS} />
+        <p className="mt-8 text-center text-xs text-ink-500">
+          Precios en USD por usuario y mes, facturados mensualmente. Impuestos no
+          incluidos. Cancela cuando quieras.
+        </p>
+      </Section>
+
+      <FAQ />
+
+      <CTA
+        title="Tu próximo sprint puede empezar hoy"
+        description="Cuéntanos cómo trabaja tu equipo por WhatsApp y te mostramos cómo se vería dentro de Pulso. Sin compromiso."
+        buttonText="Hablar con el equipo"
         whatsappNumber={WHATSAPP_COLOMBIA_NUMBER}
         whatsappMessage={WHATSAPP_DEFAULT_MESSAGE}
       />
-      <main id="content" className="min-h-screen">
-        <Section id="pricing">
-          <h2 className="text-2xl font-bold text-center text-slate-900 mb-8">
-            Planes
-          </h2>
-          <PricingTable plans={PLANS} />
-        </Section>
-        <Section>
-<CTA
-          title="¿Listo para empezar?"
-          description="Contáctanos por WhatsApp y te respondemos al instante."
-          buttonText="Contactar por WhatsApp"
-          whatsappNumber={WHATSAPP_COLOMBIA_NUMBER}
-          whatsappMessage={WHATSAPP_DEFAULT_MESSAGE}
-        />
-        </Section>
-      </main>
-      <footer className="border-t border-slate-200 bg-slate-50 px-4 py-6 text-center text-sm text-slate-600">
-        <p>© {new Date().getFullYear()} StartUp. Todos los derechos reservados.</p>
-      </footer>
-    </>
+    </main>
   );
 }

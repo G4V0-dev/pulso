@@ -3,33 +3,40 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ModalSimple } from "@/components/ModalSimple";
+import { AppPreview } from "@/components/AppPreview";
+import { ArrowRightIcon, SparklesIcon } from "@/components/icons";
+import type { Stat } from "@/lib/constants";
+import { whatsappUrl } from "@/lib/links";
 
 export interface HeroProps {
   /** Título principal. */
   title: string;
   /** Subtítulo o descripción. */
   subtitle?: string;
+  /** Texto pequeño sobre el título. */
+  eyebrow?: string;
   /** Texto del botón que lleva a /signup. */
   ctaSignup?: string;
   /** Texto del botón que abre el modal demo. */
   ctaDemo?: string;
   /** Texto del botón WhatsApp. */
   ctaWhatsApp?: string;
-  /** Texto del botón secundario (ej. Ver planes). */
+  /** Texto del botón secundario. */
   ctaSecondary?: string;
+  /** Destino del botón secundario. */
+  ctaSecondaryHref?: string;
   /** Número WhatsApp (sin + ni espacios). */
   whatsappNumber?: string;
   /** Mensaje predefinido para el enlace WhatsApp (se envía como ?text=). */
   whatsappMessage?: string;
+  /** Métricas de confianza bajo los CTAs. */
+  stats?: Stat[];
+  /** Muestra la vista previa del producto. */
+  showPreview?: boolean;
 }
 
-const whatsappUrl = (number: string, message?: string) => {
-  const base = `https://wa.me/${number.replace(/\D/g, "")}`;
-  if (message?.trim()) {
-    return `${base}?text=${encodeURIComponent(message.trim())}`;
-  }
-  return base;
-};
+const btnBase =
+  "inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-base font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950 sm:w-auto";
 
 /**
  * Hero accesible y mobile-first.
@@ -38,17 +45,20 @@ const whatsappUrl = (number: string, message?: string) => {
 export function Hero({
   title,
   subtitle,
+  eyebrow,
   ctaSignup,
   ctaDemo,
   ctaWhatsApp,
   ctaSecondary,
+  ctaSecondaryHref = "#precios",
   whatsappNumber = "",
   whatsappMessage = "",
+  stats = [],
+  showPreview = false,
 }: HeroProps) {
   const [demoOpen, setDemoOpen] = useState(false);
 
   const openDemo = () => {
-    console.log("[Hero] Demo CTA clicked");
     if (typeof window !== "undefined" && Array.isArray(window.dataLayer)) {
       window.dataLayer.push({ event: "cta_click", cta: "demo" });
     }
@@ -60,69 +70,120 @@ export function Hero({
   const hasWhatsApp = Boolean(ctaWhatsApp && whatsappNumber);
   const hasSecondary = Boolean(ctaSecondary);
 
-  const btnClass =
-    "inline-flex items-center justify-center rounded-lg px-6 py-3 text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors w-full sm:w-auto";
-  const primaryClass = "bg-emerald-600 text-white shadow hover:bg-emerald-700 focus:ring-emerald-500";
-  const secondaryClass =
-    "border-2 border-slate-300 bg-white text-slate-700 hover:bg-slate-50 focus:ring-slate-400";
-
   return (
-    <header className="text-center px-4 py-12 sm:py-16 lg:py-20">
-      <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
-        {title}
-      </h1>
-      {subtitle && (
-        <p className="mt-4 text-lg text-slate-600 sm:text-xl max-w-2xl mx-auto">
-          {subtitle}
-        </p>
-      )}
-      <div className="mt-8 flex flex-col sm:flex-row flex-wrap gap-4 justify-center items-center">
-        {hasSignup && (
-          <Link
-            href="/signup"
-            className={`${btnClass} ${primaryClass}`}
-            aria-label={ctaSignup}
+    <section
+      id="inicio"
+      className="relative isolate overflow-hidden bg-ink-950 pb-20 pt-28 sm:pb-24 sm:pt-32 lg:pb-28"
+      aria-labelledby="hero-title"
+    >
+      {/* Fondo decorativo */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(ellipse_at_top,_rgba(99,102,241,0.28),transparent_55%),radial-gradient(ellipse_at_bottom_right,_rgba(16,185,129,0.12),transparent_45%)]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.15] [background-image:linear-gradient(to_right,rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]"
+      />
+
+      <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:px-8">
+        <div className="animate-fade-up text-center lg:text-left">
+          {eyebrow && (
+            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-ink-200">
+              <SparklesIcon className="h-3.5 w-3.5 text-brand-300" />
+              {eyebrow}
+            </p>
+          )}
+
+          <h1
+            id="hero-title"
+            className="text-balance text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl"
           >
-            {ctaSignup}
-          </Link>
-        )}
-        {hasDemo && (
-          <button
-            type="button"
-            onClick={openDemo}
-            className={`${btnClass} ${secondaryClass}`}
-            aria-haspopup="dialog"
-            aria-expanded={demoOpen}
-          >
-            {ctaDemo}
-          </button>
-        )}
-        {hasWhatsApp && (
-          <a
-            href={whatsappUrl(whatsappNumber, whatsappMessage)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`${btnClass} ${primaryClass}`}
-            aria-label={`Abrir WhatsApp: ${ctaWhatsApp}`}
-          >
-            {ctaWhatsApp}
-          </a>
-        )}
-        {hasSecondary && (
-          <a
-            href="#pricing"
-            className={`${btnClass} ${secondaryClass}`}
-            aria-label={ctaSecondary}
-          >
-            {ctaSecondary}
-          </a>
+            {title}
+          </h1>
+
+          {subtitle && (
+            <p className="mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-ink-300 sm:text-xl lg:mx-0">
+              {subtitle}
+            </p>
+          )}
+
+          <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap lg:justify-start">
+            {hasSignup && (
+              <Link
+                href="/signup"
+                className={`${btnBase} bg-white text-ink-950 shadow-lg shadow-black/20 hover:bg-ink-100 focus-visible:ring-white`}
+              >
+                {ctaSignup}
+                <ArrowRightIcon />
+              </Link>
+            )}
+            {hasDemo && (
+              <button
+                type="button"
+                onClick={openDemo}
+                aria-haspopup="dialog"
+                aria-expanded={demoOpen}
+                className={`${btnBase} border border-white/15 bg-white/5 text-white hover:bg-white/10 focus-visible:ring-white`}
+              >
+                {ctaDemo}
+              </button>
+            )}
+            {hasWhatsApp && (
+              <a
+                href={whatsappUrl(whatsappNumber, whatsappMessage)}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Abrir WhatsApp: ${ctaWhatsApp}`}
+                className={`${btnBase} border border-emerald-400/30 bg-emerald-400/10 text-emerald-200 hover:bg-emerald-400/15 focus-visible:ring-emerald-400`}
+              >
+                {ctaWhatsApp}
+              </a>
+            )}
+            {hasSecondary && (
+              <a
+                href={ctaSecondaryHref}
+                aria-label={ctaSecondary}
+                className={`${btnBase} text-ink-300 hover:text-white focus-visible:ring-white`}
+              >
+                {ctaSecondary}
+              </a>
+            )}
+          </div>
+
+          <p className="mt-6 text-sm text-ink-400">
+            Sin tarjeta de crédito · Configúralo en 5 minutos · Cancela cuando quieras
+          </p>
+
+          {stats.length > 0 && (
+            <dl className="mt-10 grid grid-cols-3 gap-4 border-t border-white/10 pt-8 text-center lg:text-left">
+              {stats.map((stat) => (
+                <div key={stat.label}>
+                  <dt className="sr-only">{stat.label}</dt>
+                  <dd>
+                    <span className="block text-2xl font-bold text-white">
+                      {stat.value}
+                    </span>
+                    <span className="mt-1 block text-xs text-ink-400">{stat.label}</span>
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          )}
+        </div>
+
+        {showPreview && (
+          <div className="animate-fade-up [animation-delay:150ms]">
+            <AppPreview />
+          </div>
         )}
       </div>
+
       <ModalSimple
         isOpen={demoOpen}
         onClose={() => setDemoOpen(false)}
         title="Agenda una demo"
       />
-    </header>
+    </section>
   );
 }
