@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/Logo";
-import { FOOTER_COLUMNS, SITE, WHATSAPP_COLOMBIA_NUMBER } from "@/lib/constants";
+import { FOOTER_COLUMNS, SITE, DEFAULT_WHATSAPP_NUMBER } from "@/lib/constants";
 import { whatsappUrl } from "@/lib/links";
 
 export function Footer() {
@@ -16,7 +16,7 @@ export function Footer() {
             </p>
             <a
               href={whatsappUrl(
-                WHATSAPP_COLOMBIA_NUMBER,
+                DEFAULT_WHATSAPP_NUMBER,
                 "Hola, quiero saber más sobre Pulso",
               )}
               target="_blank"

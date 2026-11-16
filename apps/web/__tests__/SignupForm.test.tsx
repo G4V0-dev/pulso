@@ -16,7 +16,7 @@ describe("SignupForm", () => {
     expect(screen.getAllByText(/escribe un email válido/i)).not.toHaveLength(0);
     expect(screen.getByRole("alert")).toHaveTextContent(/escribe un email válido/i);
     expect(
-      screen.queryByRole("heading", { name: /revisa tu correo/i }),
+      screen.queryByRole("heading", { name: /solicitud registrada/i }),
     ).not.toBeInTheDocument();
   });
 
@@ -31,7 +31,7 @@ describe("SignupForm", () => {
     fireEvent.click(screen.getByRole("button", { name: /crear mi espacio/i }));
 
     expect(
-      screen.getByRole("heading", { name: /revisa tu correo/i }),
+      screen.getByRole("heading", { name: /solicitud registrada/i }),
     ).toBeInTheDocument();
   });
 

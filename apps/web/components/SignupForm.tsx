@@ -43,7 +43,8 @@ export function SignupForm({ defaultPlan = "pro" }: { defaultPlan?: string }) {
       return;
     }
 
-    // Punto de integración: POST a /api/signup.
+    // Demo sin backend: el formulario valida en cliente y no envía correos.
+    // Punto de integración para producción: POST a /api/signup.
     setSubmitted(true);
   };
 
@@ -53,10 +54,10 @@ export function SignupForm({ defaultPlan = "pro" }: { defaultPlan?: string }) {
         <span className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-emerald-600 text-white">
           <CheckIcon className="h-6 w-6" />
         </span>
-        <h2 className="mt-4 text-xl font-semibold text-ink-900">Revisa tu correo</h2>
+        <h2 className="mt-4 text-xl font-semibold text-ink-900">Solicitud registrada</h2>
         <p className="mx-auto mt-2 max-w-sm text-sm text-ink-600">
-          Te enviamos un enlace para activar tu espacio de trabajo. Si no llega en unos
-          minutos, revisa la carpeta de spam.
+          Esta es una demo de portafolio: no se envía ningún correo ni se crea una cuenta
+          real. En producción, aquí recibirías el enlace de activación.
         </p>
         <Link
           href="/"

@@ -30,16 +30,13 @@ export interface Stat {
 }
 
 export const HERO_STATS: Stat[] = [
-  { value: "2.400+", label: "equipos activos" },
-  { value: "38%", label: "menos reuniones de estado" },
-  { value: "4,8/5", label: "valoración media" },
+  { value: "3", label: "vistas: kanban, lista y timeline" },
+  { value: "<5 min", label: "para montar tu primer tablero" },
+  { value: "14 días", label: "de prueba sin tarjeta" },
 ];
 
 /** Número de WhatsApp por defecto para CTAs (sin espacios ni +). */
 export const DEFAULT_WHATSAPP_NUMBER = "573208112607";
-
-/** Número WhatsApp Colombia para contacto. */
-export const WHATSAPP_COLOMBIA_NUMBER = DEFAULT_WHATSAPP_NUMBER;
 
 /** Mensaje predefinido para enlace WhatsApp. */
 export const WHATSAPP_DEFAULT_MESSAGE =
@@ -249,27 +246,30 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
     title: "Producto",
     links: [
       { label: "Funciones", href: "/#producto" },
-      { label: "Precios", href: "/#precios" },
       { label: "Cómo funciona", href: "/#como-funciona" },
-      { label: "Novedades", href: "#" },
+      { label: "Precios", href: "/#precios" },
     ],
   },
   {
     title: "Recursos",
     links: [
-      { label: "Documentación", href: "#" },
-      { label: "Guías", href: "#" },
-      { label: "Estado del servicio", href: "#" },
-      { label: "Contacto", href: "#contacto" },
+      { label: "Preguntas frecuentes", href: "/#faq" },
+      { label: "Contacto", href: "/#contacto" },
+      { label: "Crear cuenta", href: "/signup" },
     ],
   },
   {
-    title: "Empresa",
+    title: "Proyecto",
     links: [
-      { label: "Sobre nosotros", href: "#" },
-      { label: "Blog", href: "#" },
-      { label: "Empleos", href: "#" },
-      { label: "Privacidad", href: "#" },
+      { label: "Repositorio", href: "https://github.com/G4V0-dev/pulso" },
+      {
+        label: "Licencia MIT",
+        href: "https://github.com/G4V0-dev/pulso/blob/main/LICENSE",
+      },
+      {
+        label: "Roadmap",
+        href: "https://github.com/G4V0-dev/pulso#roadmap",
+      },
     ],
   },
 ];

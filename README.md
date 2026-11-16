@@ -1,8 +1,8 @@
 # Pulso
 
-Landing y base de producto para un SaaS de gestión de proyectos. El sitio presenta el producto, sus planes y un flujo de registro funcional, construido con Next.js 14 (App Router), TypeScript y Tailwind CSS.
+Landing y base de producto para un SaaS de gestión de proyectos. El sitio presenta el producto, sus planes y un flujo de registro simulado, construido con Next.js 14 (App Router), TypeScript y Tailwind CSS.
 
-> **Nota:** Pulso es un producto ficticio creado como pieza de portafolio. Las métricas, testimonios y logos son de ejemplo.
+> **Nota:** Pulso es un producto ficticio creado como pieza de portafolio. Los testimonios y datos de contacto son de ejemplo.
 
 ![Hero de Pulso](docs/hero.webp)
 
@@ -69,6 +69,14 @@ npm run test:e2e      # Playwright
 ```
 
 También puedes ejecutar todo desde `apps/web` con `npm run <script>`.
+
+## Limitaciones conocidas (demo)
+
+- **El registro no crea cuentas ni envía correos.** Valida los campos en el cliente y muestra una confirmación explícita de que se trata de una demo. El punto de integración para un `POST /api/signup` está marcado en `SignupForm.tsx`.
+- **No hay backend.** El modal de demo tampoco persiste datos; solo emite eventos a `dataLayer` si existe.
+- **El número de WhatsApp** proviene del repositorio original y debe confirmarse antes de usar el sitio en producción.
+- **Los testimonios son ilustrativos**, están etiquetados como tales en la sección y no representan clientes reales.
+- **Sin deploy todavía.** El enlace de producción se añadirá al desplegar en Vercel.
 
 ## Decisiones técnicas
 

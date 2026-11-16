@@ -5,9 +5,9 @@ export function Testimonials() {
   return (
     <Section ariaLabel="Testimonios de clientes">
       <SectionHeader
-        eyebrow="Equipos reales"
+        eyebrow="Escenarios de ejemplo"
         title="Menos persecución, más entregas"
-        description="Estos son algunos de los equipos que cambiaron su forma de trabajar con Pulso."
+        description="Así describen el cambio los equipos que usan tableros, automatizaciones y reportes en su día a día."
       />
 
       <ul role="list" className="grid gap-5 md:grid-cols-3">
@@ -46,6 +46,10 @@ export function Testimonials() {
           </li>
         ))}
       </ul>
+
+      <p className="mt-8 text-center text-xs text-ink-500">
+        Testimonios y nombres ilustrativos para esta demo de portafolio.
+      </p>
     </Section>
   );
 }

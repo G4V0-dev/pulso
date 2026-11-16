@@ -9,7 +9,7 @@ import { CTA } from "@/components/CTA";
 import {
   HERO_STATS,
   PLANS,
-  WHATSAPP_COLOMBIA_NUMBER,
+  DEFAULT_WHATSAPP_NUMBER,
   WHATSAPP_DEFAULT_MESSAGE,
 } from "@/lib/constants";
 
@@ -24,7 +24,7 @@ export default function Home() {
         ctaDemo="Ver demo de 2 min"
         ctaWhatsApp="Hablar por WhatsApp"
         ctaSecondary="Ver precios"
-        whatsappNumber={WHATSAPP_COLOMBIA_NUMBER}
+        whatsappNumber={DEFAULT_WHATSAPP_NUMBER}
         whatsappMessage={WHATSAPP_DEFAULT_MESSAGE}
         stats={HERO_STATS}
         showPreview
@@ -55,7 +55,7 @@ export default function Home() {
         title="Tu próximo sprint puede empezar hoy"
         description="Cuéntanos cómo trabaja tu equipo por WhatsApp y te mostramos cómo se vería dentro de Pulso. Sin compromiso."
         buttonText="Hablar con el equipo"
-        whatsappNumber={WHATSAPP_COLOMBIA_NUMBER}
+        whatsappNumber={DEFAULT_WHATSAPP_NUMBER}
         whatsappMessage={WHATSAPP_DEFAULT_MESSAGE}
       />
     </main>

@@ -38,12 +38,13 @@ export default function SignupPage({ searchParams }: SignupPageProps) {
           </div>
 
           <div className="mt-10 rounded-2xl border border-ink-200 bg-white p-5 shadow-card">
-            <p className="text-sm leading-relaxed text-ink-600">
-              «Migramos 14 proyectos en una tarde. Al día siguiente ya estábamos
-              trabajando con reportes reales.»
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-brand-600">
+              Qué incluye la prueba
             </p>
-            <p className="mt-3 text-sm font-semibold text-ink-900">Sofía Vargas</p>
-            <p className="text-xs text-ink-500">Operations Lead, Nube</p>
+            <p className="mt-2 text-sm leading-relaxed text-ink-600">
+              Plan Pro completo durante 14 días, migración asistida desde tu herramienta
+              actual y soporte humano. Sin tarjeta y sin contrato.
+            </p>
           </div>
         </div>
 

@@ -33,13 +33,13 @@ describe("Hero", () => {
         title="Test"
         ctaWhatsApp="WhatsApp"
         whatsappNumber="573208112607"
-        whatsappMessage="estoy interesado en la pagina web para mi negocio"
+        whatsappMessage="Hola, quiero una demo de Pulso"
       />,
     );
     const cta = screen.getByRole("link", { name: /abrir whatsapp: whatsapp/i });
     expect(cta).toHaveAttribute(
       "href",
-      "https://wa.me/573208112607?text=estoy%20interesado%20en%20la%20pagina%20web%20para%20mi%20negocio",
+      "https://wa.me/573208112607?text=Hola%2C%20quiero%20una%20demo%20de%20Pulso",
     );
   });
 
@@ -77,8 +77,8 @@ describe("Hero", () => {
   });
 
   it("muestra las métricas cuando se pasan stats", () => {
-    render(<Hero title="Test" stats={[{ value: "2.400+", label: "equipos activos" }]} />);
-    expect(screen.getByText("2.400+")).toBeInTheDocument();
-    expect(screen.getAllByText(/equipos activos/i)).not.toHaveLength(0);
+    render(<Hero title="Test" stats={[{ value: "3", label: "vistas de tablero" }]} />);
+    expect(screen.getByText("3")).toBeInTheDocument();
+    expect(screen.getAllByText(/vistas de tablero/i)).not.toHaveLength(0);
   });
 });

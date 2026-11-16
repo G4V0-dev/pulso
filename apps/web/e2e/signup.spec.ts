@@ -15,7 +15,7 @@ test.describe("Flujo de registro", () => {
     ).toBeVisible();
   });
 
-  test("crea la cuenta con datos válidos", async ({ page }) => {
+  test("muestra la confirmación de la demo con datos válidos", async ({ page }) => {
     await page.goto("/signup");
 
     await expect(page.getByLabel(/plan/i)).toHaveValue("pro");
@@ -25,6 +25,8 @@ test.describe("Flujo de registro", () => {
     await page.getByRole("textbox", { name: /empresa/i }).fill("Kora");
     await page.getByRole("button", { name: /crear mi espacio/i }).click();
 
-    await expect(page.getByRole("heading", { name: /revisa tu correo/i })).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: /solicitud registrada/i }),
+    ).toBeVisible();
   });
 });
