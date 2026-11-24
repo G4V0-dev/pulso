@@ -37,7 +37,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   audit:
-    name: npm audit (advisory)
+    name: npm audit
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -53,10 +53,7 @@ jobs:
 
       - run: npm ci
 
-      # Advisory until the Next.js migration lands: Next 14 currently reports
-      # 1 critical + 3 high advisories, so failing here would block every PR.
-      # The workflow stays green and prints the report as a warning annotation.
-      - name: Production dependency audit
-        run: |
-          npm audit --omit=dev --audit-level=high || \
-            echo "::warning::npm audit reports advisories in production deps (advisory mode)"
+      # Blocking: the tree is clean (0 findings after the vite 8 upgrade) and
+      # this is the check that keeps it that way.
+      - name: Dependency audit
+        run: npm audit --audit-level=high
