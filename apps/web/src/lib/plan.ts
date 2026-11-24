@@ -3,7 +3,7 @@
  * Permite prellenar el formulario de registro vía #signup?plan=<id>.
  */
 
-const PLAN_HASH_RE = /plan=(starter|pro|business)/;
+const PLAN_HASH_RE = /plan=(starter|pro|enterprise)/;
 
 /** Extrae el plan del hash; devuelve "pro" si no hay uno válido. */
 export function parsePlanFromHash(hash: string): string {

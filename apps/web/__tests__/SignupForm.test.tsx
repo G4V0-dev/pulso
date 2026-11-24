@@ -39,4 +39,12 @@ describe("SignupForm", () => {
     render(<SignupForm defaultPlan="starter" />);
     expect(screen.getByLabelText(/plan/i)).toHaveValue("starter");
   });
+
+  it("actualiza el plan seleccionado cuando cambia la prop defaultPlan", () => {
+    const { rerender } = render(<SignupForm defaultPlan="pro" />);
+    expect(screen.getByLabelText(/plan/i)).toHaveValue("pro");
+
+    rerender(<SignupForm defaultPlan="starter" />);
+    expect(screen.getByLabelText(/plan/i)).toHaveValue("starter");
+  });
 });
