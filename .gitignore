@@ -40,3 +40,6 @@ Thumbs.db
 # Misc
 next-env.d.ts
 .DS_Store
+
+# MCP local state
+.megamemory/

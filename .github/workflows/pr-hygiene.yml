@@ -1,0 +1,62 @@
+name: PR hygiene
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened, ready_for_review]
+
+# No secrets and no write scope: this workflow only validates metadata.
+# pull_request (not pull_request_target) keeps fork PRs from ever running
+# with elevated permissions.
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-hygiene-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  size:
+    name: size
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/github-script@v9
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            if (!pr) return;
+
+            const changed = (pr.additions || 0) + (pr.deletions || 0);
+            const LIMIT = 600;   // hard fail above this
+            const WARN = 300;    // message only
+
+            core.info(`PR changes ${changed} lines (warn ${WARN}, limit ${LIMIT})`);
+
+            if (changed > LIMIT) {
+              core.setFailed(
+                `PR is too large: ${changed} changed lines. Split it into smaller PRs under ${LIMIT}.`,
+              );
+            } else if (changed > WARN) {
+              core.notice(`Large PR (${changed} lines). Reviewers should read it in passes.`);
+            }
+
+  title:
+    name: title
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/github-script@v9
+        with:
+          script: |
+            const title = context.payload.pull_request?.title ?? "";
+            const re = /^(feat|fix|chore|docs|refactor|test|perf|ci|build|revert)(\([\w./-]+\))?: .{3,}$/;
+
+            if (title.startsWith("WIP")) {
+              core.notice("Draft/WIP PR: title check skipped.");
+              return;
+            }
+            if (!re.test(title)) {
+              core.setFailed(
+                `Title must follow Conventional Commits: type(scope): subject — got "${title}"`,
+              );
+            }
