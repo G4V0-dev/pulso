@@ -10,15 +10,16 @@ export default defineConfig({
   build: {
     target: "es2020",
     sourcemap: false,
-    rollupOptions: {
-      output: {
-        // three + three-stdlib are heavy and only needed by the hero scene.
-        manualChunks: {
-          three: ["three", "@react-three/fiber", "@react-three/drei"],
-        },
-      },
-    },
+    // three entra en el chunk del lazy import de HeroScene: no pesa en el
+    // arranque del documento. Vite 8 (rolldown) ya no acepta manualChunks en
+    // forma de objeto, así que se deja que el code splitting lo resuelva.
   },
   server: { port: 5173 },
-  preview: { port: 4173 },
+  preview: {
+    port: 4173,
+    // Render sirve el sitio detrás de un proxy y envía su propio Host
+    // (pulso-xxxx.onrender.com). Vite bloquea hosts desconocidos por defecto y
+    // responde 403 "Blocked request. This host is not allowed."
+    allowedHosts: [".onrender.com", "localhost", "127.0.0.1"],
+  },
 });
