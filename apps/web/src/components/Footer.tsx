@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { FOOTER_COLUMNS, SITE, DEFAULT_WHATSAPP_NUMBER } from "@/lib/constants";
 import { whatsappUrl } from "@/lib/links";
@@ -51,9 +50,9 @@ export function Footer() {
             © {new Date().getFullYear()} {SITE.name}. Todos los derechos reservados.
           </p>
           <div className="flex items-center gap-5 text-xs text-ink-500">
-            <Link href="/signup" className="hover:text-ink-200">
+            <a href="#signup" className="hover:text-ink-200">
               Crear cuenta
-            </Link>
+            </a>
             <a href={`mailto:${SITE.email}`} className="hover:text-ink-200">
               {SITE.email}
             </a>

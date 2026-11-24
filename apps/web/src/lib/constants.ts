@@ -169,7 +169,7 @@ export const PLANS: Plan[] = [
       "Historial de 30 días",
     ],
     cta: "Empezar gratis",
-    ctaHref: "/signup?plan=starter",
+    ctaHref: "#signup?plan=starter",
   },
   {
     id: "pro",
@@ -185,7 +185,7 @@ export const PLANS: Plan[] = [
       "Historial ilimitado",
     ],
     cta: "Prueba Pro 14 días",
-    ctaHref: "/signup?plan=pro",
+    ctaHref: "#signup?plan=pro",
   },
   {
     id: "enterprise",
@@ -255,7 +255,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
     links: [
       { label: "Preguntas frecuentes", href: "/#faq" },
       { label: "Contacto", href: "/#contacto" },
-      { label: "Crear cuenta", href: "/signup" },
+      { label: "Crear cuenta", href: "#signup" },
     ],
   },
   {

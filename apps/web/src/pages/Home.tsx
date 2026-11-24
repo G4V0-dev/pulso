@@ -1,4 +1,5 @@
 import { Hero } from "@/components/Hero";
+import { SignupSection } from "@/components/SignupSection";
 import { Features } from "@/components/Features";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Testimonials } from "@/components/Testimonials";
@@ -13,7 +14,7 @@ import {
   WHATSAPP_DEFAULT_MESSAGE,
 } from "@/lib/constants";
 
-export default function Home() {
+export function Home() {
   return (
     <main id="contenido">
       <Hero
@@ -48,6 +49,8 @@ export default function Home() {
           incluidos. Cancela cuando quieras.
         </p>
       </Section>
+
+      <SignupSection />
 
       <FAQ />
 

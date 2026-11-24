@@ -1,7 +1,7 @@
 ---
 description: Escribe o repara tests de Pulso (vitest para unitarios, playwright para e2e) cuando falta cobertura de un comportamiento concreto.
 mode: subagent
-model: opencode-go/deepseek-v4-pro
+model: opencode-go/deepseek-v4.1-flash
 steps: 20
 permissions:
   - { action: "shell", resource: "*", effect: allow }

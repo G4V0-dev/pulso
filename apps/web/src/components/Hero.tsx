@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
+import { lazy, Suspense, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { ModalSimple } from "@/components/ModalSimple";
 import { AppPreview } from "@/components/AppPreview";
 import { ArrowRightIcon, SparklesIcon } from "@/components/icons";
 import type { Stat } from "@/lib/constants";
 import { whatsappUrl } from "@/lib/links";
+
+const HeroScene = lazy(() => import("@/components/HeroScene"));
 
 export interface HeroProps {
   /** Título principal. */
@@ -57,6 +59,7 @@ export function Hero({
   showPreview = false,
 }: HeroProps) {
   const [demoOpen, setDemoOpen] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
 
   const openDemo = () => {
     if (typeof window !== "undefined" && Array.isArray(window.dataLayer)) {
@@ -85,38 +88,71 @@ export function Hero({
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 opacity-[0.15] [background-image:linear-gradient(to_right,rgba(255,255,255,0.12)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.12)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]"
       />
+      <div className="absolute inset-0 -z-10 opacity-100">
+        <Suspense fallback={null}>
+          <HeroScene />
+        </Suspense>
+      </div>
+      {/* Dos capas sobre la escena: la horizontal oscurece la columna de texto (izquierda)
+          y la vertical suaviza arriba/abajo sin apagar el orbe de la derecha. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-r from-ink-950 via-ink-950/80 to-transparent"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-ink-950/60 via-transparent to-ink-950"
+      />
 
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-4 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:gap-10 lg:px-8">
         <div className="animate-fade-up text-center lg:text-left">
           {eyebrow && (
-            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-ink-200">
+            <motion.p
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0, ease: "easeOut" }}
+              className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-ink-200"
+            >
               <SparklesIcon className="h-3.5 w-3.5 text-brand-300" />
               {eyebrow}
-            </p>
+            </motion.p>
           )}
 
-          <h1
+          <motion.h1
             id="hero-title"
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.08, ease: "easeOut" }}
             className="text-balance text-4xl font-bold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl"
           >
             {title}
-          </h1>
+          </motion.h1>
 
           {subtitle && (
-            <p className="mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-ink-300 sm:text-xl lg:mx-0">
+            <motion.p
+              initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.16, ease: "easeOut" }}
+              className="mx-auto mt-6 max-w-xl text-pretty text-lg leading-relaxed text-ink-300 sm:text-xl lg:mx-0"
+            >
               {subtitle}
-            </p>
+            </motion.p>
           )}
 
-          <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap lg:justify-start">
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.24, ease: "easeOut" }}
+            className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap lg:justify-start"
+          >
             {hasSignup && (
-              <Link
-                href="/signup"
+              <a
+                href="#signup"
                 className={`${btnBase} bg-white text-ink-950 shadow-lg shadow-black/20 hover:bg-ink-100 focus-visible:ring-white`}
               >
                 {ctaSignup}
                 <ArrowRightIcon />
-              </Link>
+              </a>
             )}
             {hasDemo && (
               <button
@@ -149,7 +185,7 @@ export function Hero({
                 {ctaSecondary}
               </a>
             )}
-          </div>
+          </motion.div>
 
           <p className="mt-6 text-sm text-ink-400">
             Sin tarjeta de crédito · Configúralo en 5 minutos · Cancela cuando quieras

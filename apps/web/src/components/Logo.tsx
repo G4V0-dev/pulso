@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { SITE } from "@/lib/constants";
 import { cn } from "@/lib/links";
 
@@ -10,7 +9,7 @@ export interface LogoProps {
 
 export function Logo({ tone = "dark", className }: LogoProps) {
   return (
-    <Link
+    <a
       href="/"
       className={cn(
         "inline-flex items-center gap-2.5 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2",
@@ -37,6 +36,6 @@ export function Logo({ tone = "dark", className }: LogoProps) {
       >
         {SITE.name}
       </span>
-    </Link>
+    </a>
   );
 }

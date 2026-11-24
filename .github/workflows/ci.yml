@@ -71,7 +71,7 @@ jobs:
         run: npm test
 
   build:
-    name: build (next)
+    name: build (bundle)
     runs-on: ubuntu-latest
     timeout-minutes: 20
     needs: [static, unit]
@@ -88,5 +88,14 @@ jobs:
 
       - run: npm ci
 
-      - name: next build
+      - name: vite build
         run: npm run build
+
+      - name: Upload bundle
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: apps/web/dist/
+          retention-days: 7
+          if-no-files-found: error

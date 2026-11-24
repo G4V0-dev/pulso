@@ -17,12 +17,12 @@ test.describe("Flujo demo modal", () => {
 
     const dialog = page.getByRole("dialog", { name: /agenda una demo/i });
     await expect(dialog).toBeVisible();
-    await expect(page.getByLabel(/nombre/i)).toBeFocused();
+    await expect(dialog.getByLabel(/nombre/i)).toBeFocused();
 
-    await page.getByLabel(/nombre/i).fill("Usuario Prueba");
-    await page.getByLabel(/email/i).fill("prueba@ejemplo.com");
-    await page.getByLabel(/mensaje/i).fill("Quiero agendar una demo para mi equipo.");
-    await page.getByRole("button", { name: /enviar/i }).click();
+    await dialog.getByLabel(/nombre/i).fill("Usuario Prueba");
+    await dialog.getByLabel(/email/i).fill("prueba@ejemplo.com");
+    await dialog.getByLabel(/mensaje/i).fill("Quiero agendar una demo para mi equipo.");
+    await dialog.getByRole("button", { name: /enviar/i }).click();
 
     await expect(
       page.getByTestId("demo-success").getByText(/gracias, te contactaremos pronto/i),

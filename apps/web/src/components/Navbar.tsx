@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
 import { Logo } from "@/components/Logo";
 import { CloseIcon, MenuIcon } from "@/components/icons";
 import { NAV_LINKS } from "@/lib/constants";
@@ -36,18 +35,18 @@ export function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-2 md:flex">
-          <Link
-            href="/signup"
+          <a
+            href="#signup"
             className="rounded-lg px-3 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-ink-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500"
           >
             Iniciar sesión
-          </Link>
-          <Link
-            href="/signup"
+          </a>
+          <a
+            href="#signup"
             className="rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-brand-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
           >
             Prueba gratis
-          </Link>
+          </a>
         </div>
 
         <button
@@ -76,20 +75,20 @@ export function Navbar() {
               </a>
             ))}
             <div className="grid gap-2 pt-3">
-              <Link
-                href="/signup"
+              <a
+                href="#signup"
                 onClick={() => setOpen(false)}
                 className="rounded-lg border border-ink-300 px-4 py-2.5 text-center text-sm font-semibold text-ink-700"
               >
                 Iniciar sesión
-              </Link>
-              <Link
-                href="/signup"
+              </a>
+              <a
+                href="#signup"
                 onClick={() => setOpen(false)}
                 className="rounded-lg bg-brand-600 px-4 py-2.5 text-center text-sm font-semibold text-white"
               >
                 Prueba gratis
-              </Link>
+              </a>
             </div>
           </nav>
         </div>

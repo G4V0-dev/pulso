@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/links";
 
 export interface SectionProps {
@@ -17,17 +18,23 @@ export interface SectionProps {
  * Mobile-first: padding y ancho responsivos.
  */
 export function Section({ children, className, id, ariaLabel }: SectionProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
-    <section
+    <motion.section
       id={id}
       aria-label={ariaLabel}
       className={cn(
         "mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24",
         className,
       )}
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={prefersReducedMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.5 }}
     >
       {children}
-    </section>
+    </motion.section>
   );
 }
 

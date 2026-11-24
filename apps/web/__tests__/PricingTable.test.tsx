@@ -41,10 +41,10 @@ describe("PricingTable", () => {
     render(<PricingTable plans={PLANS} />);
     expect(
       screen.getByRole("link", { name: /empezar gratis — plan starter/i }),
-    ).toHaveAttribute("href", "/signup?plan=starter");
+    ).toHaveAttribute("href", "#signup?plan=starter");
     expect(
       screen.getByRole("link", { name: /prueba pro 14 días — plan pro/i }),
-    ).toHaveAttribute("href", "/signup?plan=pro");
+    ).toHaveAttribute("href", "#signup?plan=pro");
     expect(
       screen.getByRole("link", { name: /hablemos — plan enterprise/i }),
     ).toHaveAttribute("href", "/#contacto");

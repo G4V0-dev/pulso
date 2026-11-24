@@ -38,8 +38,15 @@ jobs:
             const CODE = /\.(ts|tsx|js|jsx|mjs|cjs|css|scss)$/;
             let code = 0;
             let other = 0;
+            let moved = 0;
             for (const f of files) {
               const n = (f.additions || 0) + (f.deletions || 0);
+              // Pure moves are not review burden: git already proves the content
+              // is the same, so a file that changed path does not count.
+              if (f.status === "renamed") {
+                moved += n;
+                continue;
+              }
               if (CODE.test(f.filename)) code += n;
               else other += n;
             }
@@ -48,7 +55,7 @@ jobs:
             const WARN = 250;   // message only
 
             core.info(
-              `code ${code} lines, docs/config ${other} lines ` +
+              `code ${code} lines, docs/config ${other} lines, moved ${moved} lines ` +
                 `(warn ${WARN}, limit ${LIMIT}, code only)`,
             );
 
