@@ -1,8 +1,11 @@
 "use client";
 
-import { FormEvent, useId, useState } from "react";
+import { FormEvent, useEffect, useId, useState } from "react";
 import { PLANS } from "@/lib/constants";
 import { CheckIcon } from "@/components/icons";
+
+const normalizePlan = (plan: string) =>
+  PLANS.some((candidate) => candidate.id === plan) ? plan : "pro";
 
 const BENEFITS = [
   "14 días de Pro sin tarjeta de crédito",
@@ -19,6 +22,12 @@ interface Errors {
 export function SignupForm({ defaultPlan = "pro" }: { defaultPlan?: string }) {
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Errors>({});
+  const [selectedPlan, setSelectedPlan] = useState(() => normalizePlan(defaultPlan));
+
+  useEffect(() => {
+    setSelectedPlan(normalizePlan(defaultPlan));
+  }, [defaultPlan]);
+
   const planId = useId();
   const errorId = useId();
 
@@ -141,9 +150,8 @@ export function SignupForm({ defaultPlan = "pro" }: { defaultPlan?: string }) {
         <select
           id={planId}
           name="plan"
-          defaultValue={
-            PLANS.some((plan) => plan.id === defaultPlan) ? defaultPlan : "pro"
-          }
+          value={selectedPlan}
+          onChange={(event) => setSelectedPlan(event.target.value)}
           className="w-full rounded-lg border border-ink-300 bg-white px-3.5 py-2.5 text-ink-900 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500"
         >
           {PLANS.map((plan) => (
