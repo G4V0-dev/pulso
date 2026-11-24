@@ -2,7 +2,7 @@ name: PR hygiene
 
 on:
   pull_request:
-    types: [opened, edited, synchronize, reopened, ready_for_review]
+    types: [opened, edited, synchronize, reopened, ready_for_review, labeled, unlabeled]
 
 # No secrets and no write scope: this workflow only validates metadata.
 # pull_request (not pull_request_target) keeps fork PRs from ever running
