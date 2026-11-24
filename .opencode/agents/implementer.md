@@ -24,7 +24,9 @@ permissions:
   - { action: "shell", resource: "git switch main*", effect: deny }
   - { action: "shell", resource: "git branch -D*", effect: deny }
   - { action: "shell", resource: "gh pr merge*", effect: deny }
+  - { action: "shell", resource: "gh pr edit*", effect: deny }
   - { action: "shell", resource: "gh pr review --approve*", effect: deny }
+  - { action: "shell", resource: "gh pr edit*", effect: deny }
   - { action: "shell", resource: "rm -rf *", effect: deny }
 ---
 

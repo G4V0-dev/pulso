@@ -37,8 +37,9 @@ Pega la salida real en el PR. "Debería pasar" no es evidencia; un agente que di
 - **Nunca** push directo a `main`, ni `gh pr merge`, ni aprobar tu propio PR. El
   merge lo hace una persona.
 - Trabaja en una rama `agent/<slug-corto>`. Una tarea = una rama = un PR.
-- Un PR por debajo de **600 líneas cambiadas** (el check `size` falla por encima).
-  Si la tarea es más grande, pártela.
+- Un PR por debajo de **400 líneas de código** (el check `size` falla por encima;
+  cuenta solo `.ts/.tsx/.js/.jsx/.css`, ignora docs y archivos movidos). Si la tarea es
+  más grande, párte­la. La etiqueta `size/exception` es solo para mantenedores humanos.
 - Título de PR en Conventional Commits: `type(scope): subject` — el check `title`
   falla si no cumple. Tipos: feat, fix, chore, docs, refactor, test, perf, ci, build.
 - Commits en Conventional Commits, en inglés, imperativo y minúsculas:

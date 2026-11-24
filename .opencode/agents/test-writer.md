@@ -17,7 +17,9 @@ permissions:
   - { action: "shell", resource: "git push*", effect: deny }
   - { action: "shell", resource: "git commit --amend*", effect: deny }
   - { action: "shell", resource: "gh pr merge*", effect: deny }
+  - { action: "shell", resource: "gh pr edit*", effect: deny }
   - { action: "shell", resource: "gh pr review --approve*", effect: deny }
+  - { action: "shell", resource: "gh pr edit*", effect: deny }
   - { action: "shell", resource: "git reset --hard*", effect: deny }
   - { action: "shell", resource: "rm -rf *", effect: deny }
   - { action: "edit", resource: "**/.env*", effect: deny }

@@ -59,9 +59,20 @@ jobs:
                 `(warn ${WARN}, limit ${LIMIT}, code only)`,
             );
 
-            if (code > LIMIT) {
+            // Escape hatch: only a maintainer can add this label, and it is
+            // visible on the PR forever. Used for stack migrations where the
+            // diff is mostly mechanical movement, never for ordinary features.
+            const labels = (context.payload.pull_request.labels || []).map((l) => l.name);
+            const exception = labels.includes("size/exception");
+
+            if (code > LIMIT && exception) {
+              core.notice(
+                `size/exception: ${code} lines of code accepted by maintainer override.`,
+              );
+            } else if (code > LIMIT) {
               core.setFailed(
-                `PR changes ${code} lines of code. Split it into smaller PRs under ${LIMIT}.`,
+                `PR changes ${code} lines of code. Split it into smaller PRs under ${LIMIT}, ` +
+                  `or a maintainer can add the "size/exception" label.`,
               );
             } else if (code > WARN) {
               core.notice(`Large code change (${code} lines). Reviewers should read it in passes.`);
