@@ -1,0 +1,82 @@
+name: PR hygiene
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened, ready_for_review]
+
+# No secrets and no write scope: this workflow only validates metadata.
+# pull_request (not pull_request_target) keeps fork PRs from ever running
+# with elevated permissions.
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-hygiene-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  size:
+    name: size
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/github-script@v9
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            if (!pr) return;
+
+            // Only code counts: docs, workflows and config can legitimately be a
+            // big PR, but a 600-line code change is more than one review can hold.
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              per_page: 100,
+            });
+
+            const CODE = /\.(ts|tsx|js|jsx|mjs|cjs|css|scss)$/;
+            let code = 0;
+            let other = 0;
+            for (const f of files) {
+              const n = (f.additions || 0) + (f.deletions || 0);
+              if (CODE.test(f.filename)) code += n;
+              else other += n;
+            }
+
+            const LIMIT = 400;  // hard fail above this (code only)
+            const WARN = 250;   // message only
+
+            core.info(
+              `code ${code} lines, docs/config ${other} lines ` +
+                `(warn ${WARN}, limit ${LIMIT}, code only)`,
+            );
+
+            if (code > LIMIT) {
+              core.setFailed(
+                `PR changes ${code} lines of code. Split it into smaller PRs under ${LIMIT}.`,
+              );
+            } else if (code > WARN) {
+              core.notice(`Large code change (${code} lines). Reviewers should read it in passes.`);
+            }
+
+  title:
+    name: title
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/github-script@v9
+        with:
+          script: |
+            const title = context.payload.pull_request?.title ?? "";
+            const re = /^(feat|fix|chore|docs|refactor|test|perf|ci|build|revert)(\([\w./-]+\))?: .{3,}$/;
+
+            if (title.startsWith("WIP")) {
+              core.notice("Draft/WIP PR: title check skipped.");
+              return;
+            }
+            if (!re.test(title)) {
+              core.setFailed(
+                `Title must follow Conventional Commits: type(scope): subject — got "${title}"`,
+              );
+            }

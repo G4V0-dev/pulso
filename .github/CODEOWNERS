@@ -1,0 +1,18 @@
+# Rutas que un agente de IA no debe cambiar sin revisión humana explícita.
+# GitHub lee este archivo de la rama base, así que un PR no puede reescribirlo.
+
+# Dueño por defecto de todo el repo.
+*                       @G4V0-dev
+
+# Infraestructura de CI y política del agente: cambios siempre revisados.
+/.github/               @G4V0-dev
+/AGENTS.md              @G4V0-dev
+/opencode.jsonc         @G4V0-dev
+/.opencode/             @G4V0-dev
+
+# Dependencias y configuración de build.
+/package.json                       @G4V0-dev
+/apps/web/package.json              @G4V0-dev
+/apps/web/package-lock.json         @G4V0-dev
+/apps/web/next.config.js            @G4V0-dev
+/apps/web/tsconfig.json             @G4V0-dev
