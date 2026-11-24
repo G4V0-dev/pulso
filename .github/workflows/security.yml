@@ -40,9 +40,6 @@ jobs:
     name: npm audit (advisory)
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    # Advisory until the Next.js migration lands: Next 14 currently reports
-    # 1 critical + 3 high advisories, so a hard gate here would block every PR.
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v7
         with:
@@ -56,5 +53,10 @@ jobs:
 
       - run: npm ci
 
+      # Advisory until the Next.js migration lands: Next 14 currently reports
+      # 1 critical + 3 high advisories, so failing here would block every PR.
+      # The workflow stays green and prints the report as a warning annotation.
       - name: Production dependency audit
-        run: npm audit --omit=dev --audit-level=high
+        run: |
+          npm audit --omit=dev --audit-level=high || \
+            echo "::warning::npm audit reports advisories in production deps (advisory mode)"
