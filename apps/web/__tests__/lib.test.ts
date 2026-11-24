@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { whatsappUrl } from "@/lib/links";
+import { whatsappUrl, cn } from "@/lib/links";
 import { formatPlanPrice } from "@/lib/format";
 import { PLANS } from "@/lib/constants";
 
@@ -16,6 +16,29 @@ describe("whatsappUrl", () => {
 
   it("ignora mensajes vacíos", () => {
     expect(whatsappUrl("573208112607", "   ")).toBe("https://wa.me/573208112607");
+  });
+});
+
+describe("whatsappUrl — casos límite", () => {
+  it("deja solo los dígitos de un número con letras y guiones", () => {
+    expect(whatsappUrl("+1 (800) ABC-1234")).toBe("https://wa.me/18001234");
+  });
+
+  it("produce la URL base cuando el número no tiene dígitos", () => {
+    expect(whatsappUrl("ABC-xyz")).toBe("https://wa.me/");
+  });
+
+  it("percent-encoda emojis y caracteres especiales de forma reversible", () => {
+    const url = whatsappUrl("573208112607", "Hola 👋 & amigos");
+    const encoded = url.split("?text=")[1];
+    expect(url).toContain("?text=");
+    expect(decodeURIComponent(encoded)).toBe("Hola 👋 & amigos");
+  });
+
+  it("recorta los espacios al inicio y al final antes de codificar", () => {
+    expect(whatsappUrl("573208112607", "  Hola  ")).toBe(
+      "https://wa.me/573208112607?text=Hola",
+    );
   });
 });
 
@@ -36,5 +59,23 @@ describe("formatPlanPrice", () => {
       amount: "$12",
       suffix: "/usuario/mes",
     });
+  });
+});
+
+describe("cn", () => {
+  it("filtra false, null, undefined y cadenas vacías conservando el orden", () => {
+    expect(cn("a", false, "b", null, "c", undefined, "", "d")).toBe("a b c d");
+  });
+
+  it("une las clases con un solo espacio", () => {
+    expect(cn("flex", "items-center", "gap-2")).toBe("flex items-center gap-2");
+  });
+
+  it("devuelve una cadena vacía sin argumentos", () => {
+    expect(cn()).toBe("");
+  });
+
+  it("no duplica los espacios internos de cada clase", () => {
+    expect(cn("px-4  py-2", "bg-white")).toBe("px-4  py-2 bg-white");
   });
 });
