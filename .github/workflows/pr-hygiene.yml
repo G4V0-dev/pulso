@@ -26,18 +26,38 @@ jobs:
             const pr = context.payload.pull_request;
             if (!pr) return;
 
-            const changed = (pr.additions || 0) + (pr.deletions || 0);
-            const LIMIT = 600;   // hard fail above this
-            const WARN = 300;    // message only
+            // Only code counts: docs, workflows and config can legitimately be a
+            // big PR, but a 600-line code change is more than one review can hold.
+            const files = await github.paginate(github.rest.pulls.listFiles, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: pr.number,
+              per_page: 100,
+            });
 
-            core.info(`PR changes ${changed} lines (warn ${WARN}, limit ${LIMIT})`);
+            const CODE = /\.(ts|tsx|js|jsx|mjs|cjs|css|scss)$/;
+            let code = 0;
+            let other = 0;
+            for (const f of files) {
+              const n = (f.additions || 0) + (f.deletions || 0);
+              if (CODE.test(f.filename)) code += n;
+              else other += n;
+            }
 
-            if (changed > LIMIT) {
+            const LIMIT = 400;  // hard fail above this (code only)
+            const WARN = 250;   // message only
+
+            core.info(
+              `code ${code} lines, docs/config ${other} lines ` +
+                `(warn ${WARN}, limit ${LIMIT}, code only)`,
+            );
+
+            if (code > LIMIT) {
               core.setFailed(
-                `PR is too large: ${changed} changed lines. Split it into smaller PRs under ${LIMIT}.`,
+                `PR changes ${code} lines of code. Split it into smaller PRs under ${LIMIT}.`,
               );
-            } else if (changed > WARN) {
-              core.notice(`Large PR (${changed} lines). Reviewers should read it in passes.`);
+            } else if (code > WARN) {
+              core.notice(`Large code change (${code} lines). Reviewers should read it in passes.`);
             }
 
   title:
