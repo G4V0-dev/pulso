@@ -1,7 +1,7 @@
 ---
 description: Revisa un diff o un PR de Pulso en modo solo-lectura y devuelve hallazgos por severidad con file:line. No corrige nada.
 mode: subagent
-model: opencode-go/deepseek-v4-pro
+model: opencode-go/deepseek-v4.1-flash
 steps: 15
 permissions:
   - { action: "*", resource: "*", effect: deny }

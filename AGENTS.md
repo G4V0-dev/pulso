@@ -5,7 +5,8 @@ cumples, el PR se rechaza y los checks de CI lo bloquean igual.
 
 ## Contexto del repo
 
-- Monorepo mínimo: la app vive en `apps/web` (Next.js 14 + TypeScript + Tailwind).
+- Monorepo mínimo: la app vive en `apps/web` (Vite 5 + React 18 + TypeScript + Tailwind).
+  Se despliega como Static Site en Render con `render.yaml`; el build sale a `dist/`.
   Todos los comandos npm se ejecutan con `--prefix apps/web` desde la raíz.
 - `main` está protegida: solo entra por PR con checks en verde y aprobación humana.
 - Node 20 (`.nvmrc`), npm 10, `package-lock.json` es la fuente de verdad de versiones.
@@ -36,15 +37,16 @@ Pega la salida real en el PR. "Debería pasar" no es evidencia; un agente que di
 - **Nunca** push directo a `main`, ni `gh pr merge`, ni aprobar tu propio PR. El
   merge lo hace una persona.
 - Trabaja en una rama `agent/<slug-corto>`. Una tarea = una rama = un PR.
-- Un PR por debajo de **600 líneas cambiadas** (el check `size` falla por encima).
-  Si la tarea es más grande, pártela.
+- Un PR por debajo de **400 líneas de código** (el check `size` falla por encima;
+  cuenta solo `.ts/.tsx/.js/.jsx/.css`, ignora docs y archivos movidos). Si la tarea es
+  más grande, párte­la. La etiqueta `size/exception` es solo para mantenedores humanos.
 - Título de PR en Conventional Commits: `type(scope): subject` — el check `title`
   falla si no cumple. Tipos: feat, fix, chore, docs, refactor, test, perf, ci, build.
 - Commits en Conventional Commits, en inglés, imperativo y minúsculas:
   `fix(pricing): handle empty plan list`.
 - No edites `.github/workflows/**`, `.github/CODEOWNERS`, `AGENTS.md`,
   `opencode.jsonc`, `.opencode/**`, `package.json`, `package-lock.json` ni
-  `next.config.js` sin decirlo explícitamente en la descripción del PR. Esas rutas
+  `vite.config.ts` sin decirlo explícitamente en la descripción del PR. Esas rutas
   requieren revisión humana y algunas están bloqueadas por permisos.
 - Si añades una dependencia, justifícala en el PR y usa `npm --prefix apps/web install`
   (nunca edites `package-lock.json` a mano).

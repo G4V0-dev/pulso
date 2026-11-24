@@ -1,7 +1,6 @@
 "use client";
 
 import { FormEvent, useId, useState } from "react";
-import Link from "next/link";
 import { PLANS } from "@/lib/constants";
 import { CheckIcon } from "@/components/icons";
 
@@ -59,12 +58,12 @@ export function SignupForm({ defaultPlan = "pro" }: { defaultPlan?: string }) {
           Esta es una demo de portafolio: no se envía ningún correo ni se crea una cuenta
           real. En producción, aquí recibirías el enlace de activación.
         </p>
-        <Link
+        <a
           href="/"
           className="mt-6 inline-block text-sm font-semibold text-emerald-700 hover:text-emerald-800"
         >
           Volver al inicio
-        </Link>
+        </a>
       </div>
     );
   }

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { Plan } from "@/lib/constants";
 import { formatPlanPrice } from "@/lib/format";
 import { cn } from "@/lib/links";
@@ -74,7 +73,7 @@ export function PricingTable({ plans }: PricingTableProps) {
               ))}
             </ul>
 
-            <Link
+            <a
               href={plan.ctaHref}
               className={cn(
                 "mt-8 inline-flex w-full items-center justify-center rounded-xl px-4 py-3 text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2",
@@ -85,7 +84,7 @@ export function PricingTable({ plans }: PricingTableProps) {
               aria-label={`${plan.cta} — plan ${plan.name}`}
             >
               {plan.cta}
-            </Link>
+            </a>
           </article>
         );
       })}

@@ -1,8 +1,8 @@
 ---
 description: Implementa una sola tarea acotada de Pulso de punta a punta (código + tests + verificación local) y se detiene. Úsalo para cualquier cambio de código en apps/web.
 mode: primary
-model: opencode-go/deepseek-v4-pro
-steps: 40
+model: opencode-go/deepseek-v4.1-flash
+steps: 90
 permissions:
   - { action: "shell", resource: "*", effect: allow }
   - { action: "edit", resource: "*", effect: allow }
@@ -24,7 +24,9 @@ permissions:
   - { action: "shell", resource: "git switch main*", effect: deny }
   - { action: "shell", resource: "git branch -D*", effect: deny }
   - { action: "shell", resource: "gh pr merge*", effect: deny }
+  - { action: "shell", resource: "gh pr edit*", effect: deny }
   - { action: "shell", resource: "gh pr review --approve*", effect: deny }
+  - { action: "shell", resource: "gh pr edit*", effect: deny }
   - { action: "shell", resource: "rm -rf *", effect: deny }
 ---
 

@@ -1,7 +1,7 @@
 import { defineConfig, devices } from "@playwright/test";
 
 /**
- * Configuración mínima de Playwright para apps/web.
+ * Configuración E2E contra el servidor de Vite (preview del build).
  * Ejecutar con: npm run test:e2e
  */
 export default defineConfig({
@@ -12,14 +12,14 @@ export default defineConfig({
   workers: 1,
   reporter: "list",
   use: {
-    baseURL: "http://localhost:3000",
+    baseURL: "http://localhost:4173",
     trace: "on-first-retry",
   },
   projects: [{ name: "chromium", use: { ...devices["Desktop Chrome"] } }],
   webServer: {
-    command: "npm run dev",
-    url: "http://localhost:3000",
+    command: "npm run build && npm run preview",
+    url: "http://localhost:4173",
     reuseExistingServer: !process.env.CI,
-    timeout: 120000,
+    timeout: 180000,
   },
 });

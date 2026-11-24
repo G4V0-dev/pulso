@@ -2,9 +2,9 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Flujo de registro", () => {
   test("preselecciona el plan de la URL y valida el email", async ({ page }) => {
-    await page.goto("/signup?plan=starter");
+    await page.goto("/#signup?plan=starter");
 
-    await expect(page.getByLabel(/plan/i)).toHaveValue("starter");
+    await expect(page.getByLabel("Plan", { exact: true })).toHaveValue("starter");
 
     await page.getByLabel(/nombre completo/i).fill("Ana Perez");
     await page.getByLabel(/email de trabajo/i).fill("ana@");
@@ -16,9 +16,9 @@ test.describe("Flujo de registro", () => {
   });
 
   test("muestra la confirmación de la demo con datos válidos", async ({ page }) => {
-    await page.goto("/signup");
+    await page.goto("/#signup");
 
-    await expect(page.getByLabel(/plan/i)).toHaveValue("pro");
+    await expect(page.getByLabel("Plan", { exact: true })).toHaveValue("pro");
 
     await page.getByLabel(/nombre completo/i).fill("Ana Perez");
     await page.getByLabel(/email de trabajo/i).fill("ana@empresa.com");

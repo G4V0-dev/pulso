@@ -2,7 +2,7 @@ name: PR hygiene
 
 on:
   pull_request:
-    types: [opened, edited, synchronize, reopened, ready_for_review]
+    types: [opened, edited, synchronize, reopened, ready_for_review, labeled, unlabeled]
 
 # No secrets and no write scope: this workflow only validates metadata.
 # pull_request (not pull_request_target) keeps fork PRs from ever running
@@ -38,8 +38,15 @@ jobs:
             const CODE = /\.(ts|tsx|js|jsx|mjs|cjs|css|scss)$/;
             let code = 0;
             let other = 0;
+            let moved = 0;
             for (const f of files) {
               const n = (f.additions || 0) + (f.deletions || 0);
+              // Pure moves are not review burden: git already proves the content
+              // is the same, so a file that changed path does not count.
+              if (f.status === "renamed") {
+                moved += n;
+                continue;
+              }
               if (CODE.test(f.filename)) code += n;
               else other += n;
             }
@@ -48,13 +55,24 @@ jobs:
             const WARN = 250;   // message only
 
             core.info(
-              `code ${code} lines, docs/config ${other} lines ` +
+              `code ${code} lines, docs/config ${other} lines, moved ${moved} lines ` +
                 `(warn ${WARN}, limit ${LIMIT}, code only)`,
             );
 
-            if (code > LIMIT) {
+            // Escape hatch: only a maintainer can add this label, and it is
+            // visible on the PR forever. Used for stack migrations where the
+            // diff is mostly mechanical movement, never for ordinary features.
+            const labels = (context.payload.pull_request.labels || []).map((l) => l.name);
+            const exception = labels.includes("size/exception");
+
+            if (code > LIMIT && exception) {
+              core.notice(
+                `size/exception: ${code} lines of code accepted by maintainer override.`,
+              );
+            } else if (code > LIMIT) {
               core.setFailed(
-                `PR changes ${code} lines of code. Split it into smaller PRs under ${LIMIT}.`,
+                `PR changes ${code} lines of code. Split it into smaller PRs under ${LIMIT}, ` +
+                  `or a maintainer can add the "size/exception" label.`,
               );
             } else if (code > WARN) {
               core.notice(`Large code change (${code} lines). Reviewers should read it in passes.`);

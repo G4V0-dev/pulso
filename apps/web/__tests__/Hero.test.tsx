@@ -43,11 +43,11 @@ describe("Hero", () => {
     );
   });
 
-  it("muestra el link a /signup cuando se pasa ctaSignup", () => {
+  it("muestra el link a #signup cuando se pasa ctaSignup", () => {
     render(<Hero title="Test" ctaSignup="Prueba gratis 14 días" />);
     const link = screen.getByRole("link", { name: /prueba gratis 14 días/i });
     expect(link).toBeInTheDocument();
-    expect(link).toHaveAttribute("href", "/signup");
+    expect(link).toHaveAttribute("href", "#signup");
   });
 
   it("enlaza el CTA secundario a #precios por defecto", () => {
@@ -74,6 +74,56 @@ describe("Hero", () => {
     expect(screen.getByRole("heading", { name: /solo título/i })).toBeInTheDocument();
     expect(screen.queryByRole("link")).not.toBeInTheDocument();
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
+  });
+
+  it("usa dos capas de gradiente oscuras sobre la escena, no blancas", () => {
+    const { container } = render(<Hero title="Test" />);
+    const classesOf = (el: Element) =>
+      (el.getAttribute("class") ?? "").split(/\s+/).filter(Boolean);
+    const withClass = (token: string) =>
+      Array.from(container.querySelectorAll("div")).filter((el) =>
+        classesOf(el).includes(token),
+      );
+
+    const horizontal = withClass("bg-gradient-to-r");
+    const vertical = withClass("bg-gradient-to-b");
+
+    expect(horizontal).toHaveLength(1);
+    expect(vertical).toHaveLength(1);
+
+    for (const layer of [horizontal[0], vertical[0]]) {
+      expect(layer.className).toContain("pointer-events-none");
+      expect(layer.className).toContain("absolute");
+      expect(layer.className).toContain("inset-0");
+      expect(layer.className).toContain("-z-10");
+      expect(layer.className).not.toContain("from-white");
+      expect(layer.className).not.toContain("via-white");
+    }
+
+    // Capa horizontal: protege la columna de texto a la izquierda.
+    expect(horizontal[0].className).toContain("from-ink-950");
+    expect(horizontal[0].className).toContain("via-ink-950/80");
+    expect(horizontal[0].className).toContain("to-transparent");
+
+    // Capa vertical suave encima de la horizontal.
+    expect(vertical[0].className).toContain("from-ink-950/60");
+    expect(vertical[0].className).toContain("via-transparent");
+    expect(vertical[0].className).toContain("to-ink-950");
+
+    // Ambas capas se pintan por encima de la escena (más tarde en el DOM).
+    const scene = container.querySelector(".opacity-100");
+    expect(scene).not.toBeNull();
+    const all = Array.from(container.querySelectorAll("div"));
+    const sceneIndex = all.indexOf(scene as HTMLDivElement);
+    expect(all.indexOf(horizontal[0])).toBeGreaterThan(sceneIndex);
+    expect(all.indexOf(vertical[0])).toBeGreaterThan(sceneIndex);
+  });
+
+  it("deja la escena a opacity-100 y no la apaga con opacity-90", () => {
+    const { container } = render(<Hero title="Test" />);
+
+    expect(container.querySelector(".opacity-100")).not.toBeNull();
+    expect(container.querySelector(".opacity-90")).toBeNull();
   });
 
   it("muestra las métricas cuando se pasan stats", () => {
